@@ -22,16 +22,19 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 
 		type NullableJSON struct {
-			NullableIntInit    *int `json:nullable_id_init`
-			NullableIntNotInit *int `json:nullable_id_not_init`
-			NotNullIntInit     int  `json:not_null_id_init`
-			NotNullIntNotInit  int  `json:not_null_id_not_init`
+			NullableIntInit    *int `json:"nullable_id_init"`
+			NullableIntNotInit *int `json:"nullable_id_not_init"`
+			NotNullIntInit     int  `json:"not_null_id_init"`
+			NotNullIntNotInit  int  `json:"not_null_id_not_init"`
 		}
 
 		nullableJSON := new(NullableJSON)
 
 		nullableJSON.NullableIntInit = EvenMinute()
 		nullableJSON.NotNullIntInit = 1
+
+		var n int
+		println(n)
 
 		c.JSON(200, nullableJSON)
 	})
