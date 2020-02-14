@@ -1,6 +1,21 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"time"
+
+	"github.com/gin-gonic/gin"
+)
+
+// EvenMinute returns minute if minute is Even number.
+// 現在分が偶数であれば分を返す。そうでなければ奇数を返す。
+func EvenMinute() *int {
+	t := time.Now()
+	minute := t.Minute()
+	if minute%2 == 0 {
+		return &minute
+	}
+	return nil
+}
 
 func main() {
 	r := gin.Default()
@@ -15,8 +30,7 @@ func main() {
 
 		nullableJson := new(NullableJson)
 
-		tmpInt := 1
-		nullableJson.NullableIDInit = &tmpInt
+		nullableJson.NullableIDInit = EvenMinute()
 		nullableJson.NotNullIDInit = 1
 
 		c.JSON(200, nullableJson)
